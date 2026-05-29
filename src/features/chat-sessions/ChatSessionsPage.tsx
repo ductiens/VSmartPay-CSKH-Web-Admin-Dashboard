@@ -1,10 +1,4 @@
-const navItems = [
-  { icon: "dashboard", label: "Tổng quan" },
-  { icon: "confirmation_number", label: "Yêu cầu hỗ trợ" },
-  { icon: "forum", label: "Phiên chat", active: true },
-  { icon: "library_books", label: "Kho tri thức" },
-  { icon: "analytics", label: "Báo cáo & Cài đặt" },
-];
+import { MainLayout } from "../../components/layout";
 
 const metrics = [
   { label: "Active Sessions", value: "124", icon: "forum", iconClass: "text-[#006c4d]" },
@@ -50,77 +44,6 @@ function MaterialIcon({ name, className = "", filled = false }: { name: string; 
   );
 }
 
-function Sidebar() {
-  return (
-    <nav className="fixed left-0 top-0 z-50 flex h-full w-[260px] flex-col bg-[#0b1f1a] py-6 shadow-md">
-      <div className="mb-8 flex items-center gap-2 px-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#50fec1]">
-          <MaterialIcon name="account_balance_wallet" className="text-[20px] font-bold text-[#0b1f1a]" />
-        </div>
-        <div>
-          <h1 className="text-[20px] font-bold leading-7 text-[#50fec1]">VSmartPay</h1>
-          <p className="text-[12px] font-semibold leading-4 tracking-wider text-[#738881]">Admin Dashboard</p>
-        </div>
-      </div>
-
-      <ul className="flex flex-1 flex-col gap-1 px-2">
-        {navItems.map((item) => (
-          <li key={item.label}>
-            <a
-              href="#"
-              className={
-                item.active
-                  ? "flex scale-[0.99] items-center gap-4 border-l-4 border-[#50fec1] bg-[#374b44]/20 px-4 py-2 text-[12px] font-bold leading-4 tracking-wider text-[#50fec1] opacity-90 transition-colors"
-                  : "flex items-center gap-4 rounded-lg px-4 py-2 text-[12px] font-semibold leading-4 tracking-wider text-[#374b44] transition-colors hover:bg-[#374b44]/10 hover:text-[#50fec1]"
-              }
-            >
-              <MaterialIcon name={item.icon} filled={item.active} />
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-auto px-2">
-        <a
-          href="#"
-          className="flex items-center gap-4 rounded-lg px-4 py-2 text-[12px] font-semibold leading-4 tracking-wider text-[#374b44] transition-colors hover:bg-[#374b44]/10 hover:text-[#50fec1]"
-        >
-          <MaterialIcon name="settings" />
-          Cài đặt
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-function Topbar() {
-  return (
-    <header className="fixed right-0 top-0 z-40 flex h-16 w-[calc(100%-260px)] items-center justify-between border-b border-[#c2c8c4] bg-[#fcf9f8] px-6">
-      <div className="relative max-w-md flex-1">
-        <MaterialIcon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 text-[#424845]" />
-        <input
-          className="w-full rounded-full border border-[#c2c8c4] bg-[#f6f3f2] py-2 pl-10 pr-4 text-[14px] leading-5 text-[#1c1b1b] transition-shadow focus:border-[#50fec1] focus:outline-none focus:ring-1 focus:ring-[#50fec1]"
-          placeholder="Tìm kiếm phiên chat..."
-          type="text"
-        />
-      </div>
-
-      <div className="flex items-center gap-4">
-        <button className="flex h-10 w-10 items-center justify-center rounded-full text-[#424845] transition-all hover:bg-[#f6f3f2]">
-          <MaterialIcon name="notifications" />
-        </button>
-        <button className="flex h-10 w-10 items-center justify-center rounded-full text-[#424845] transition-all hover:bg-[#f6f3f2]">
-          <MaterialIcon name="help_outline" />
-        </button>
-        <div className="ml-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[#c2c8c4] bg-[#0b1f1a]">
-          <span className="text-[12px] font-semibold leading-4 tracking-wider text-[#50fec1]">AD</span>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function MetricsGrid() {
   return (
     <div className="grid shrink-0 grid-cols-4 gap-4">
@@ -137,7 +60,13 @@ function MetricsGrid() {
           <div className="relative z-10 mt-2 flex items-end gap-2">
             <span className="text-[28px] font-bold leading-9 tracking-tight text-[#1c1b1b]">{metric.value}</span>
             {metric.suffix ? (
-              <span className={metric.suffix.startsWith("+") ? "mb-1 text-[12px] font-semibold leading-4 tracking-wider text-[#006c4d]" : "text-[18px] font-semibold leading-6 text-[#424845]"}>
+              <span
+                className={
+                  metric.suffix.startsWith("+")
+                    ? "mb-1 text-[12px] font-semibold leading-4 tracking-wider text-[#006c4d]"
+                    : "text-[18px] font-semibold leading-6 text-[#424845]"
+                }
+              >
                 {metric.suffix}
               </span>
             ) : null}
@@ -268,15 +197,13 @@ function ChatPreview() {
             <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0b1f1a]">
               <span className="text-[10px] font-semibold leading-4 tracking-wider text-[#50fec1]">AD</span>
             </div>
-            <div className="flex flex-col items-start gap-1">
-              <div className="rounded-xl rounded-tl-sm border border-[#50fec1]/30 bg-[#0b1f1a] p-4 text-[#374b44] shadow-sm">
-                <div className="mb-1 flex items-center gap-1">
-                  <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1]" />
-                  <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1] delay-75" />
-                  <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1] delay-150" />
-                </div>
-                <p className="mt-1 text-[10px] font-semibold leading-4 text-[#50fec1]">Agent is reviewing context...</p>
+            <div className="rounded-xl rounded-tl-sm border border-[#50fec1]/30 bg-[#0b1f1a] p-4 shadow-sm">
+              <div className="mb-1 flex items-center gap-1">
+                <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1]" />
+                <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1] delay-75" />
+                <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#50fec1] delay-150" />
               </div>
+              <p className="mt-1 text-[10px] font-semibold leading-4 text-[#50fec1]">Agent is reviewing context...</p>
             </div>
           </div>
         </div>
@@ -302,10 +229,8 @@ function ChatPreview() {
 
 export default function ChatSessionsPage() {
   return (
-    <div className="h-screen overflow-hidden bg-[#fcf9f8] font-['Inter',sans-serif] text-[#1c1b1b] antialiased">
-      <Sidebar />
-      <Topbar />
-      <main className="ml-[260px] mt-16 flex h-[calc(100vh-64px)] flex-col gap-6 overflow-hidden p-6">
+    <MainLayout>
+      <div className="flex h-full flex-col gap-6 overflow-hidden bg-[#fcf9f8] text-[#1c1b1b] antialiased">
         <div className="flex shrink-0 items-end justify-between">
           <div>
             <h2 className="text-[28px] font-bold leading-9 tracking-tight text-[#1c1b1b]">Phiên Chat</h2>
@@ -323,7 +248,7 @@ export default function ChatSessionsPage() {
           <ChatList />
           <ChatPreview />
         </div>
-      </main>
-    </div>
+      </div>
+    </MainLayout>
   );
 }
