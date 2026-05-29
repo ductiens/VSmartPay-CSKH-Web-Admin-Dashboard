@@ -5,6 +5,7 @@ import LoadingPage from "../features/loading-page/LoadingPage";
 import PageNotFound from "../features/page-not-found/PageNotFound";
 import GuestGuard from "../common/guards/GuestGuard";
 import AuthGuard from "../common/guards/AuthGuard";
+import ChatSessionsPage from "../features/chat-sessions/ChatSessionsPage";
 
 const LoginPage = lazyWithRetry(() => import("../features/login/LoginPage"));
 
@@ -14,7 +15,7 @@ const routes = [
     children: [
       {
         path: "/",
-        element: <>ádasd</>,
+        element: <ChatSessionsPage />,
       },
     ],
   },
