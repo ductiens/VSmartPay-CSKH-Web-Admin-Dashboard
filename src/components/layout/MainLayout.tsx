@@ -8,12 +8,12 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="flex h-screen w-screen bg-background">
+    <div className="h-screen w-screen overflow-hidden bg-[#fcf9f8]">
       <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <TopNavBar />
-        <main className="ml-[260px] mt-[64px] h-[calc(100vh-64px)] overflow-y-auto p-lg bg-background">{children}</main>
-      </div>
+      <TopNavBar />
+      <main className="ml-[260px] mt-16 h-[calc(100vh-64px)] overflow-y-auto bg-[#fcf9f8] px-6 py-6">
+        {children}
+      </main>
     </div>
   );
 }
