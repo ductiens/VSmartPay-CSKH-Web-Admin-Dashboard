@@ -1,27 +1,42 @@
 @import "tailwindcss";
+
 :root {
-	--root-font-size: 1vw;
+  --root-font-size: 1vw;
 }
 
 * {
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent; /* Ẩn hiệu ứng trên trình duyệt WebKit (Chrome, Safari) */
-	-webkit-touch-callout: none; /* Vô hiệu menu chọn văn bản trên iOS */
-	font-family: "SVN-Gotham", sans-serif;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  font-family: "Inter", "SVN-Gotham", sans-serif;
 }
 
 html {
-	font-size: var(--root-font-size);
+  font-size: var(--root-font-size);
 }
 
 @media screen and (max-width: 639.98px) {
-	:root {
-		--root-font-size: 4.267vw;
-	}
+  :root {
+    --root-font-size: 4.267vw;
+  }
 }
 
-
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #fafbfc;
+}
+
+/* Custom scrollbar for chat area to keep it clean */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e5e2e1;
+  border-radius: 10px;
 }

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import LanguageSwitcher from "../../components/buttons/ButtonChangeLanguage";
 import { setCredentials } from "../../redux/auth/slice";
 import { useLogin } from "../auth/auth.mutation";
+import { setDevBypass } from "../../common/utils/dev-bypass";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -190,6 +191,20 @@ export default function LoginPage() {
             </a>
             .
           </p>
+
+          {/* Dev Mode Button - Hidden in production */}
+          {import.meta.env.DEV && (
+            <div className="mt-6 pt-4 border-t border-[#E9EEF1]">
+              <button
+                type="button"
+                onClick={() => setDevBypass()}
+                className="w-full py-2 px-4 text-xs text-[#727875] hover:text-[#00D99F] hover:bg-[#F4F7F9] 
+                  rounded transition-colors border border-[#E9EEF1] hover:border-[#00D99F]"
+              >
+                🔧 Dev Mode - Bypass Login
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Footer */}

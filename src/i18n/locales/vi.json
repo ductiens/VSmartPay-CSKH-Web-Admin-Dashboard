@@ -1,10 +1,28 @@
 {
   "common": {
     "hello": "Xin chào",
-    "welcome": "Chào mừng bạn"
+    "welcome": "Chào mừng bạn",
+    "search": "Tìm kiếm..."
+  },
+  "app": {
+    "adminDashboard": "Bảng điều khiển quản trị"
   },
   "auth": {
     "login": "Đăng nhập",
     "logout": "Đăng xuất"
+  },
+  "nav": {
+    "overview": "Tổng quan",
+    "supportRequests": "Yêu cầu hỗ trợ",
+    "chatSessions": "Phiên chat",
+    "knowledgeBase": "Kho tri thức",
+    "reports": "Báo cáo & Cài đặt",
+    "settings": "Cài đặt"
+  },
+  "dashboard": {
+    "welcome": "Xem các chỉ số hỗ trợ của bạn và hoạt động gần đây"
+  },
+  "support": {
+    "description": "Quản lý các yêu cầu hỗ trợ khách hàng"
   }
 }

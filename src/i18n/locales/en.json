@@ -1,10 +1,28 @@
 {
   "common": {
     "hello": "Hello",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "search": "Search..."
+  },
+  "app": {
+    "adminDashboard": "Admin Dashboard"
   },
   "auth": {
     "login": "Login",
     "logout": "Logout"
+  },
+  "nav": {
+    "overview": "Overview",
+    "supportRequests": "Support Requests",
+    "chatSessions": "Chat Sessions",
+    "knowledgeBase": "Knowledge Base",
+    "reports": "Reports & Settings",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "View your support metrics and recent activity"
+  },
+  "support": {
+    "description": "Manage customer support tickets and requests"
   }
 }
