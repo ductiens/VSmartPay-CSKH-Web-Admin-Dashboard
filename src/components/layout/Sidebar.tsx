@@ -20,38 +20,42 @@ export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed left-0 top-0 h-full w-[260px] bg-primary-container shadow-md flex flex-col py-lg z-50">
-      {/* Logo Section */}
-      <div className="px-md mb-xl flex items-center gap-sm">
-        <div className="w-8 h-8 rounded bg-secondary-fixed flex items-center justify-center">
+    <nav className="fixed left-0 top-0 z-50 flex h-full w-[260px] flex-col bg-[#0b1f1a] py-6 shadow-md">
+      <div className="mb-8 flex items-center gap-2 px-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded bg-[#50fec1] text-[#0b1f1a]">
           <span
-            className="material-symbols-outlined text-primary-container"
+            className="material-symbols-outlined text-[22px] font-bold"
             style={{ fontVariationSettings: "'FILL' 1" }}
           >
-            assured_workload
+            account_balance_wallet
           </span>
         </div>
         <div>
-          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">VSmartPay</h1>
-          <p className="font-label-md text-label-md text-on-primary-fixed-variant">{t("app.adminDashboard")}</p>
+          <h1 className="text-[20px] font-bold leading-7 text-[#50fec1]">VSmartPay</h1>
+          <p className="text-[12px] font-semibold leading-4 tracking-wider text-[#738881]">Admin Dashboard</p>
         </div>
       </div>
 
-      {/* Navigation Items */}
-      <ul className="flex-1 flex flex-col gap-xs px-sm">
+      <ul className="flex flex-1 flex-col gap-1 px-2">
         {navItems.map((item) => {
-          const isActive = location.pathname.startsWith(item.path);
+          const isActive = location.pathname === "/" ? item.path === "/dashboard" : location.pathname.startsWith(item.path);
+
           return (
             <li key={item.path}>
               <Link
                 to={item.path}
-                className={`flex items-center gap-md px-md py-sm rounded-lg font-label-md text-label-md transition-colors ${
+                className={
                   isActive
-                    ? "text-secondary-fixed font-bold border-l-4 border-secondary-fixed bg-on-primary-fixed-variant/20 opacity-90 scale-[0.99]"
-                    : "text-on-primary-fixed-variant hover:bg-on-primary-fixed-variant/10 hover:text-secondary-fixed"
-                }`}
+                    ? "flex scale-[0.99] items-center gap-4 border-l-4 border-[#50fec1] bg-[#374b44]/20 px-4 py-2 text-[12px] font-bold leading-4 tracking-wider text-[#50fec1] opacity-90 transition-colors"
+                    : "flex items-center gap-4 rounded-lg px-4 py-2 text-[12px] font-semibold leading-4 tracking-wider text-[#738881] transition-colors hover:bg-[#374b44]/20 hover:text-[#50fec1]"
+                }
               >
-                <span className="material-symbols-outlined">{item.icon}</span>
+                <span
+                  className="material-symbols-outlined"
+                  style={isActive ? { fontVariationSettings: "'FILL' 1" } : undefined}
+                >
+                  {item.icon}
+                </span>
                 {t(item.label)}
               </Link>
             </li>
@@ -59,11 +63,10 @@ export default function Sidebar() {
         })}
       </ul>
 
-      {/* Settings */}
-      <div className="px-sm mt-auto">
+      <div className="mt-auto px-2">
         <Link
           to="/settings"
-          className="flex items-center gap-md px-md py-sm rounded-lg font-label-md text-label-md text-on-primary-fixed-variant hover:bg-on-primary-fixed-variant/10 hover:text-secondary-fixed transition-colors"
+          className="flex items-center gap-4 rounded-lg px-4 py-2 text-[12px] font-semibold leading-4 tracking-wider text-[#738881] transition-colors hover:bg-[#374b44]/20 hover:text-[#50fec1]"
         >
           <span className="material-symbols-outlined">settings</span>
           {t("nav.settings")}
