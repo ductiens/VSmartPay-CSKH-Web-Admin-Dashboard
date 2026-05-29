@@ -1,0 +1,10 @@
+{
+  "common": {
+    "hello": "Xin chào",
+    "welcome": "Chào mừng bạn"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất"
+  }
+}

@@ -1,0 +1,27 @@
+@import "tailwindcss";
+:root {
+	--root-font-size: 1vw;
+}
+
+* {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent; /* Ẩn hiệu ứng trên trình duyệt WebKit (Chrome, Safari) */
+	-webkit-touch-callout: none; /* Vô hiệu menu chọn văn bản trên iOS */
+	font-family: "SVN-Gotham", sans-serif;
+}
+
+html {
+	font-size: var(--root-font-size);
+}
+
+@media screen and (max-width: 639.98px) {
+	:root {
+		--root-font-size: 4.267vw;
+	}
+}
+
+
+body {
+	margin: 0;
+	padding: 0;
+}
