@@ -9,7 +9,9 @@
   },
   "auth": {
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "username": "Phone number / Username",
+    "password": "Password"
   },
   "nav": {
     "overview": "Overview",

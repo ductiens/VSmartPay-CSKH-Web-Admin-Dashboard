@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import LanguageSwitcher from "../../components/buttons/ButtonChangeLanguage";
 import { setCredentials } from "../../redux/auth/slice";
 import { useLogin } from "../auth/auth.mutation";
 import { setDevBypass } from "../../common/utils/dev-bypass";
@@ -52,11 +51,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-[#FAFBFC] text-[#1c1b1b]">
-      {/* Language switcher top-right */}
-      <div className="absolute top-4 right-4">
-        <LanguageSwitcher />
-      </div>
-
       <main className="w-full max-w-[440px] px-4">
         {/* Logo Header */}
         <div className="text-center mb-8">

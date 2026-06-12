@@ -9,7 +9,9 @@
   },
   "auth": {
     "login": "Đăng nhập",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "username": "Số điện thoại / Tên đăng nhập",
+    "password": "Mật khẩu"
   },
   "nav": {
     "overview": "Tổng quan",
