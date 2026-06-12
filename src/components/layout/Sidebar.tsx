@@ -8,11 +8,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: "/dashboard", label: "nav.overview", icon: "dashboard" },
-  { path: "/support-requests", label: "nav.supportRequests", icon: "confirmation_number" },
+  // { path: "/dashboard", label: "nav.overview", icon: "dashboard" },
+  // { path: "/support-requests", label: "nav.supportRequests", icon: "confirmation_number" },
   { path: "/chat-sessions", label: "nav.chatSessions", icon: "forum" },
   { path: "/knowledge-base", label: "nav.knowledgeBase", icon: "library_books" },
-  { path: "/reports", label: "nav.reports", icon: "analytics" },
+  // { path: "/reports", label: "nav.reports", icon: "analytics" },
 ];
 
 export default function Sidebar() {
@@ -63,7 +63,7 @@ export default function Sidebar() {
         })}
       </ul>
 
-      <div className="mt-auto px-2">
+      {/* <div className="mt-auto px-2">
         <Link
           to="/settings"
           className="flex items-center gap-4 rounded-lg px-4 py-2 text-[12px] font-semibold leading-4 tracking-wider text-[#738881] transition-colors hover:bg-[#374b44]/20 hover:text-[#50fec1]"
@@ -71,7 +71,7 @@ export default function Sidebar() {
           <span className="material-symbols-outlined">settings</span>
           {t("nav.settings")}
         </Link>
-      </div>
+      </div> */}
     </nav>
   );
 }
