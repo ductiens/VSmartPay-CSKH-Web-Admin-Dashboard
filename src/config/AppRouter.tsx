@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import AuthGuard from "../common/guards/AuthGuard";
 import GuestGuard from "../common/guards/GuestGuard";
 import { lazyWithRetry } from "../common/utils/lazyWithRetry";
@@ -23,11 +23,7 @@ const routes = [
     children: [
       {
         path: "/",
-        element: (
-          <Suspense fallback={<LoadingPage />}>
-            <DashboardPage />
-          </Suspense>
-        ),
+        element: <Navigate to="/knowledge-base" replace />,
       },
       {
         path: "/dashboard",

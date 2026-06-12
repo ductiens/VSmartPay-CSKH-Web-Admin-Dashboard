@@ -40,7 +40,7 @@ export default function LoginPage() {
               refreshToken: data.refreshToken,
             }),
           );
-          navigate("/");
+          navigate("/knowledge-base");
         },
         onError: (err: any) => {
           message.error(err.message || "Login failed");
