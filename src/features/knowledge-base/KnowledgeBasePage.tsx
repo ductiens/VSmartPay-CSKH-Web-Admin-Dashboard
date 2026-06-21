@@ -339,13 +339,26 @@ export default function KnowledgeBasePage() {
                               {doc.status.toLowerCase() === "processing" ? "-" : doc.chunk_count}
                             </td>
                             <td className="p-4 text-right">
-                              <button
-                                onClick={() => handleDelete(doc.doc_id, doc.file_name)}
-                                className="inline-flex h-8 w-8 items-center justify-center rounded text-red-500 transition-colors hover:bg-red-50 hover:text-red-700 cursor-pointer"
-                                title="Xóa tài liệu"
-                              >
-                                <MaterialIcon name="delete" className="text-[18px]" />
-                              </button>
+                              <div className="flex items-center justify-end gap-2">
+                                {doc.cloudinary_url && (
+                                  <a
+                                    href={doc.cloudinary_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex h-8 w-8 items-center justify-center rounded text-blue-500 transition-colors hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+                                    title="Xem tài liệu gốc"
+                                  >
+                                    <MaterialIcon name="visibility" className="text-[18px]" />
+                                  </a>
+                                )}
+                                <button
+                                  onClick={() => handleDelete(doc.doc_id, doc.file_name)}
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded text-red-500 transition-colors hover:bg-red-50 hover:text-red-700 cursor-pointer"
+                                  title="Xóa tài liệu"
+                                >
+                                  <MaterialIcon name="delete" className="text-[18px]" />
+                                </button>
+                              </div>
                             </td>
                           </tr>
                         );

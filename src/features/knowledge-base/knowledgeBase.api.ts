@@ -25,6 +25,7 @@ export interface DocumentListItem {
   status: string; // "processing" | "processed" | "failed" | "duplicate"
   chunk_count: number;
   error_message: string | null;
+  cloudinary_url?: string;
   created_at: string | null;
   updated_at: string | null;
 }
