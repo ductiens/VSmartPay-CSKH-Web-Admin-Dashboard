@@ -254,6 +254,22 @@ export default function KnowledgeBasePage() {
     }
   };
 
+  const handleViewDocument = async (e: React.MouseEvent, doc: DocumentListItem) => {
+    e.preventDefault();
+    if (!doc.cloudinary_url) return;
+
+    const ext = doc.file_name.split('.').pop()?.toLowerCase() || '';
+    if (['docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt'].includes(ext)) {
+      window.open(`https://docs.google.com/viewer?url=${encodeURIComponent(doc.cloudinary_url)}`, '_blank');
+      return;
+    }
+
+    // Đối với PDF và các tệp thô khác, Cloudinary thường cản trở việc xem trực tiếp.
+    // Do đó, chúng ta sẽ gọi API backend để stream luồng file (đã vượt qua tường lửa)
+    const proxyUrl = `http://localhost:8000/api/v1/documents/${doc.doc_id}/view`;
+    window.open(proxyUrl, '_blank');
+  };
+
   return (
     <MainLayout>
       <div className="flex h-full flex-col bg-[#FAFBFC]">
@@ -341,15 +357,13 @@ export default function KnowledgeBasePage() {
                             <td className="p-4 text-right">
                               <div className="flex items-center justify-end gap-2">
                                 {doc.cloudinary_url && (
-                                  <a
-                                    href={doc.cloudinary_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                  <button
+                                    onClick={(e) => handleViewDocument(e, doc)}
                                     className="inline-flex h-8 w-8 items-center justify-center rounded text-blue-500 transition-colors hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
                                     title="Xem tài liệu gốc"
                                   >
                                     <MaterialIcon name="visibility" className="text-[18px]" />
-                                  </a>
+                                  </button>
                                 )}
                                 <button
                                   onClick={() => handleDelete(doc.doc_id, doc.file_name)}
