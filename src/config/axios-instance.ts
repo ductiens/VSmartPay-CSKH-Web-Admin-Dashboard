@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
 import notify from "./notification";
 import tokenManager from "../common/utils/token-manager";
-import { handleRefreshToken } from "../common/utils/refresh-token";
+
 import type { IResponse } from "../service/type/response.type";
 export interface IOriginRequest extends AxiosRequestConfig {
   _retry: boolean;
@@ -53,9 +53,13 @@ const handleResponseError = async (error: AxiosError<IResponse<any>>) => {
 
   const status = error.response.status;
   // console.log("Error status: ", { status });
-  // 401 - Token hết hạn, thử refresh
-  if (status === 401 && !originalRequest._retry) {
-    return handleRefreshToken(originalRequest);
+  // 401 - Token hết hạn
+  if (status === 401) {
+    notify.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+    tokenManager.removeAccessToken();
+    tokenManager.removeRefreshToken();
+    window.location.href = "/login";
+    return Promise.reject(error);
   }
 
   // 403 - Không có quyền truy cập
