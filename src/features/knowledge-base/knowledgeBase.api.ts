@@ -74,3 +74,18 @@ export const uploadDocuments = (
 export const deleteDocument = (docId: string): Promise<ApiResponse<null>> => {
   return agentClient.delete(`/documents/${docId}`);
 };
+
+export interface DocumentChunkItem {
+  chunk_id: string;
+  chunk_index: number;
+  content: string;
+  page?: number;
+  heading?: string;
+  category?: string;
+  kb_type?: string;
+  token_count?: number;
+}
+
+export const getDocumentChunks = (docId: string): Promise<ApiResponse<DocumentChunkItem[]>> => {
+  return agentClient.get(`/documents/${docId}/chunks`);
+};

@@ -4,7 +4,9 @@ import {
   getDocuments,
   uploadDocuments,
   deleteDocument,
+  getDocumentChunks,
   type DocumentListItem,
+  type DocumentChunkItem,
 } from "./knowledgeBase.api";
 
 function MaterialIcon({
@@ -32,6 +34,12 @@ export default function KnowledgeBasePage() {
   const [documents, setDocuments] = useState<DocumentListItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  
+  // Chunks viewing states
+  const [isChunksModalOpen, setIsChunksModalOpen] = useState<boolean>(false);
+  const [selectedDocForChunks, setSelectedDocForChunks] = useState<DocumentListItem | null>(null);
+  const [docChunks, setDocChunks] = useState<DocumentChunkItem[]>([]);
+  const [isLoadingChunks, setIsLoadingChunks] = useState<boolean>(false);
   
   // Modal states
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -260,7 +268,7 @@ export default function KnowledgeBasePage() {
 
     const ext = doc.file_name.split('.').pop()?.toLowerCase() || '';
     if (['docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt'].includes(ext)) {
-      window.open(`https://docs.google.com/viewer?url=${encodeURIComponent(doc.cloudinary_url)}`, '_blank');
+      window.open(`https://view.officeapps.live.com/op/view.aspx?src=${encodeURIComponent(doc.cloudinary_url)}`, '_blank');
       return;
     }
 
@@ -268,6 +276,24 @@ export default function KnowledgeBasePage() {
     // Do đó, chúng ta sẽ gọi API backend để stream luồng file (đã vượt qua tường lửa)
     const proxyUrl = `http://localhost:8000/api/v1/documents/${doc.doc_id}/view`;
     window.open(proxyUrl, '_blank');
+  };
+
+  const handleViewChunks = async (doc: DocumentListItem) => {
+    setSelectedDocForChunks(doc);
+    setIsChunksModalOpen(true);
+    setIsLoadingChunks(true);
+    setDocChunks([]);
+    try {
+      const res = await getDocumentChunks(doc.doc_id);
+      if (res && res.success) {
+        setDocChunks(res.data);
+      }
+    } catch (err) {
+      console.error("Lỗi khi tải chunks:", err);
+      alert("Không thể tải chi tiết chunks");
+    } finally {
+      setIsLoadingChunks(false);
+    }
   };
 
   return (
@@ -359,12 +385,22 @@ export default function KnowledgeBasePage() {
                                 {doc.cloudinary_url && (
                                   <button
                                     onClick={(e) => handleViewDocument(e, doc)}
-                                    className="inline-flex h-8 w-8 items-center justify-center rounded text-blue-500 transition-colors hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+                                    className="inline-flex h-8 w-8 items-center justify-center rounded text-[#424845] transition-colors hover:bg-gray-100 hover:text-black cursor-pointer"
                                     title="Xem tài liệu gốc"
                                   >
                                     <MaterialIcon name="visibility" className="text-[18px]" />
                                   </button>
                                 )}
+                                <button
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleViewChunks(doc);
+                                  }}
+                                  className="inline-flex h-8 w-8 items-center justify-center rounded text-blue-500 transition-colors hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+                                  title="Xem chi tiết chunks"
+                                >
+                                  <MaterialIcon name="segment" className="text-[18px]" />
+                                </button>
                                 <button
                                   onClick={() => handleDelete(doc.doc_id, doc.file_name)}
                                   className="inline-flex h-8 w-8 items-center justify-center rounded text-red-500 transition-colors hover:bg-red-50 hover:text-red-700 cursor-pointer"
@@ -530,6 +566,75 @@ export default function KnowledgeBasePage() {
                   </>
                 )}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Chunks Modal */}
+      {isChunksModalOpen && selectedDocForChunks && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div
+            className="w-full max-w-4xl max-h-[85vh] flex flex-col rounded-xl border border-[#e5e2e1] bg-white shadow-2xl relative animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-[#E9EEF1] p-6 shrink-0">
+              <div>
+                <h3 className="text-[18px] font-bold text-black flex items-center gap-2">
+                  <MaterialIcon name="segment" className="text-[#2F80ED]" />
+                  Chi tiết Chunks đã xử lý
+                </h3>
+                <p className="mt-1 text-[13px] text-[#424845]">
+                  Tài liệu: <span className="font-semibold text-black">{selectedDocForChunks.file_name}</span>
+                </p>
+              </div>
+              <button
+                onClick={() => setIsChunksModalOpen(false)}
+                className="text-gray-400 hover:text-black transition-colors cursor-pointer rounded p-1"
+              >
+                <MaterialIcon name="close" className="text-[24px]" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-auto p-6 bg-[#FAFBFC]">
+              {isLoadingChunks ? (
+                <div className="flex flex-col items-center justify-center h-40 text-[#424845]">
+                  <MaterialIcon name="sync" className="text-[32px]" spinning />
+                  <span className="mt-2 text-[14px]">Đang lấy dữ liệu chunks...</span>
+                </div>
+              ) : docChunks.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-40 text-[#424845]">
+                  <span className="text-[14px]">Không tìm thấy chunk nào hoặc tài liệu chưa được xử lý.</span>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[13px] font-semibold text-[#424845]">
+                      Tổng số: {docChunks.length} chunks
+                    </p>
+                  </div>
+                  {docChunks.map((chunk, idx) => (
+                    <div key={chunk.chunk_id || idx} className="rounded-lg border border-[#E9EEF1] bg-white shadow-sm overflow-hidden">
+                      <div className="bg-[#F8FAFB] px-4 py-2 border-b border-[#E9EEF1] flex justify-between items-center">
+                        <span className="text-[12px] font-bold text-[#424845]">#{chunk.chunk_index}</span>
+                        {chunk.heading && (
+                          <span className="text-[11px] font-semibold bg-[#e8f0fe] text-[#1967d2] px-2 py-0.5 rounded truncate max-w-sm" title={chunk.heading}>
+                            {chunk.heading}
+                          </span>
+                        )}
+                        <span className="text-[11px] text-[#727875] bg-[#E9EEF1] px-2 py-0.5 rounded">
+                          {chunk.token_count || 0} tokens
+                        </span>
+                      </div>
+                      <div className="p-4 text-[13px] leading-relaxed text-black whitespace-pre-wrap font-mono bg-white">
+                        {chunk.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
