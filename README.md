@@ -1,6 +1,15 @@
-# V-Smart Pay - CSKH Web Admin Dashboard
+# VSmartPay - CSKH Web Admin Dashboard
 
-Hệ thống quản trị Web (Admin Dashboard) chuyên dụng dành cho nhân viên chăm sóc khách hàng (CSKH) và quản trị viên của **V-Smart Pay**. Ứng dụng hỗ trợ theo dõi hiệu suất, quản lý các yêu cầu hỗ trợ, giám sát AI Chatbot và tiếp quản phiên chat trực tiếp (Human Takeover).
+Hệ thống quản trị Web (Admin Dashboard) chuyên dụng dành cho nhân viên chăm sóc khách hàng (CSKH) và quản trị viên của **VSmartPay**. Ứng dụng hỗ trợ theo dõi hiệu suất, quản lý các yêu cầu hỗ trợ, giám sát AI Chatbot và tiếp quản phiên chat trực tiếp (Human Takeover).
+
+---
+
+## 🌐 Hệ sinh thái dự án (Project Ecosystem)
+
+Hệ thống quản trị này nằm trong hệ sinh thái giải pháp tổng thể của VSmartPay. Để có trải nghiệm và góc nhìn đầy đủ nhất về sản phẩm, bạn có thể tham khảo thêm các repository liên quan:
+
+- **[vsmartpay-ai-support-agent](https://github.com/ductiens/vsmartpay-ai-support-agent)**: Hệ thống Backend (FastAPI/Python) cốt lõi xử lý logic AI Chatbot, RAG và điều phối Multi-Agent bằng LangGraph. Cung cấp API trực tiếp cho Dashboard này.
+- **[fintech-support-app](https://github.com/ductiens/fintech-support-app)**: Ứng dụng Frontend phía người dùng (Client App) mô phỏng Ví điện tử VSmartPay. Nơi sinh ra các đoạn hội thoại thực tế để nhân viên CSKH quản lý trên Dashboard.
 
 ---
 
