@@ -1,5 +1,15 @@
 # VSmartPay - CSKH Web Admin Dashboard
 
+<div align="center">
+  <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/Vite_7-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite 7" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Ant_Design_v6-0170FE?style=for-the-badge&logo=ant-design&logoColor=white" alt="Ant Design" />
+</div>
+
+<br/>
+
 Hệ thống quản trị Web (Admin Dashboard) chuyên dụng dành cho nhân viên chăm sóc khách hàng (CSKH) và quản trị viên của **VSmartPay**. Ứng dụng hỗ trợ theo dõi hiệu suất, quản lý các yêu cầu hỗ trợ, giám sát AI Chatbot và tiếp quản phiên chat trực tiếp (Human Takeover).
 
 ---
@@ -40,6 +50,7 @@ Hệ thống quản trị này nằm trong hệ sinh thái giải pháp tổng t
 ## 🛠️ Công Nghệ Sử Dụng
 
 - **Core**: React 19 & Vite 7 (TypeScript)
+- **Routing**: React Router DOM v7
 - **State Management**: Redux Toolkit & React Redux
 - **API Cache & Sync**: [TanStack React Query v5](https://tanstack.com/query/latest)
 - **UI Framework**: [Ant Design (antd v6)](https://ant.design/) làm giao diện hiển thị chuyên nghiệp.
@@ -55,7 +66,7 @@ Hệ thống quản trị này nằm trong hệ sinh thái giải pháp tổng t
 - Một nút **🔧 Dev Mode - Bypass Login** hiển thị dưới chân trang đăng nhập (`/login`).
 - Khi nhấp vào nút này, hệ thống tự động lưu token dev vào LocalStorage và chuyển hướng thẳng vào Dashboard.
 - **Lưu ý**: Nút này chỉ xuất hiện ở chế độ Local Development (`npm run dev`) và tự động bị loại bỏ hoàn toàn trong Production build (`npm run build`).
-- Xem chi tiết tại [DEV_MODE.md](file:///d:/VinFast/VSF/Fintech/Industry/VSmartPay-CSKH-Web-Admin-Dashboard/DEV_MODE.md).
+- Xem chi tiết tại [DEV_MODE.md](./DEV_MODE.md).
 
 ---
 
